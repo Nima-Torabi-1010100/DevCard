@@ -1,7 +1,10 @@
 ﻿using DevCard_MVC.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Diagnostics;
+using System.Net.Mime;
 
 namespace DevCard_MVC.Controllers
 {
@@ -17,9 +20,19 @@ namespace DevCard_MVC.Controllers
         {
             return View();
         }
+
+        [HttpGet]
         public IActionResult Contact()
         {
             return View();
+        }
+
+        [HttpPost]
+        public FileResult Contact(IFormCollection form)
+        {
+            string text = form["message"];
+            System.IO.File.WriteAllText("wwwroot/message.txt", text);
+            return File("message.txt", MediaTypeNames.Text.Html, "message.txt");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
