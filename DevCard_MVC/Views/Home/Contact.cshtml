@@ -56,6 +56,21 @@
     <div class="container">
         <form id="contact-form" class="contact-form col-lg-8 mx-lg-auto" method="post" asp-action="Contact">
             <h3 class="text-center mb-3">در دسترس باشید!</h3>
+            <span style="margin: 2px;">
+                @if (!string.IsNullOrWhiteSpace(ViewBag.success))
+                {
+                    <div class="alert-success">
+                        @ViewBag.success
+                    </div>
+                }
+                @if (!string.IsNullOrWhiteSpace(ViewBag.error))
+                {
+                    <div class="alert-danger">
+                        @ViewBag.error
+                    </div>
+                }
+            </span>
+
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label class="sr-only" asp-for="Name">نام</label>
@@ -68,12 +83,8 @@
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
                 <div class="form-group col-12">
-                    <select id="services" class="custom-select" name="services">
-                        <option selected>سرویس مورد نظر خود را انتخاب کنید...</option>
-                        <option value="basic">نقره ای</option>
-                        <option value="standard">طلایی</option>
-                        <option value="premium">پلاتین</option>
-                        <option value="not sure">الماس</option>
+                    <select class="custom-select" asp-for="Service" asp-items="Model.Services">
+                        <option value="0" selected="selected">سرویس مورد نظر خود را انتخاب کنید...</option>
                     </select>
                 </div>
                 <div class="form-group col-12">
