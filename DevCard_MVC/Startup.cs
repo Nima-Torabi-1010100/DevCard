@@ -50,7 +50,12 @@ namespace DevCard_MVC
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}"
+                    );
+                //endpoints.MapControllerRoute(
+                //    name: "contact",
+                //    pattern: "{controller=Home}/{action=Contact}/{id?}"
+                //    );
             });
         }
     }

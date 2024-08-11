@@ -9,9 +9,9 @@ using System.Net.Mime;
 
 namespace DevCard_MVC.Controllers
 {
+    [Route("/inventory/products")]
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
 
         private readonly List<Service> _services = new List<Service>()
         {
@@ -21,12 +21,14 @@ namespace DevCard_MVC.Controllers
             new Service(4,"الماس"),
         };
 
-        public IActionResult Index()
+        [Route("HomePage/{name?}")]
+        //[Route("HomePage")]
+        public IActionResult Index(string name)
         {
             return View();
         }
 
-        [HttpGet]
+        [HttpGet("ContactPage")]
         public IActionResult Contact()
         {
             Contact model = new Contact()
@@ -56,7 +58,7 @@ namespace DevCard_MVC.Controllers
             }
 
             ModelState.Clear();
-            model = new Contact() { Services = new SelectList(_services, "Id","Name") };
+            model = new Contact() { Services = new SelectList(_services, "Id", "Name") };
             ViewBag.success = "پیام شما با موفقیت ارسال شد.";
             return View(model);
         }
