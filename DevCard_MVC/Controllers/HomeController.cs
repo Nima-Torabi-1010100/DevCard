@@ -1,18 +1,16 @@
-﻿using DevCard_MVC.Models;
+﻿using DevCard_MVC.Data;
+using DevCard_MVC.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Net.Mime;
 
 namespace DevCard_MVC.Controllers
 {
-    [Route("/inventory/products")]
+    //[Route("/inventory/products")]
     public class HomeController : Controller
     {
-
         private readonly List<Service> _services = new List<Service>()
         {
             new Service(1,"نقره‌ای"),
@@ -21,14 +19,22 @@ namespace DevCard_MVC.Controllers
             new Service(4,"الماس"),
         };
 
-        [Route("HomePage/{name?}")]
+        //[Route("HomePage/{name:maxlength(5)}")]
         //[Route("HomePage")]
         public IActionResult Index(string name)
         {
             return View();
         }
+        public IActionResult ProjectDetails(long id)
+        {
+            Project project = ProjectStore.GetProjectBy(id);
+            if (project == null)
+                return NotFound();
+            return View("ProjectDetails", project);
+        }
 
-        [HttpGet("ContactPage")]
+        //[HttpGet("ContactPage")]
+        [HttpGet]
         public IActionResult Contact()
         {
             Contact model = new Contact()
